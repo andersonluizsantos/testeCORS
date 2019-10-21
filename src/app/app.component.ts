@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpErrorResponse  } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders  } from '@angular/common/http';
 
 import {  throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
@@ -15,10 +15,18 @@ export class AppComponent {
   person;
   data;
 
-  private REST_API_SERVER = "http://localhost:8082/FindLogsBackEnd/api/environment";
+  private REST_API_SERVER = "/api/environment";
   //private REST_API_SERVER = "http://localhost:8082/projetoposgraduacao/api/environment";
 
   constructor(private http: HttpClient) {}
+
+  httpOptions ={
+    headers: new HttpHeaders({ 'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+    'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+    })
+  }
 
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
